@@ -1,0 +1,51 @@
+*,
+*::after,
+*::before 
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;  
+        /* box-sizing jest z definicji niedziedziczny, dlatego chcac zachowac strukture strony zaznaczamy to w globalnych ustawieniach */
+}
+
+html {
+    font-size: 62.5%;
+
+    /* attention, attention !
+       ustalamy font-size globalnie na wartosc 10px
+       ALE: NIE PISZEMY TEGO W PX !
+       jezeli okreslimy to w px, user nie bedzie mogl zmienic wielkosci czcionki na stronie pomimo ze zrobil to w przegladarce
+       font-size: 100% zwrocilby domyslna wartosc fonta czyli 16px
+       dlatego tu wartosc 62.5% -> (10/16)*100
+       pozwoli na latwe przeliczanie jednostek na REMy
+       przeliczamy na REMy, bo ZAWSZE odnoszą się one do wielkości ustwionej w root (jak tu)
+       EM odnosza sie do wielkości elementow typu parent - w wiekszym projekcie sie moze wszystko schrzanic */
+
+    @include res(tab-land) {    // width < 900?
+        font-size: 56.25%;      // 1rem = 9px, 9/16= 56.25
+    }
+
+    @include res(tab-port) {    // width < 600?
+        font-size: 50%;         // 1rem = 8px, 8/16= 50
+    }
+
+    @include res(big-desktop) {
+        font-size: 75%;         // 1rem = 12px, 12/16= 75
+    }
+}
+
+body {
+    box-sizing: border-box;
+     /* border-box sprawia, że przeglądarka 
+       nie będzie automatycznie dodawać paddingów, marginów i innych śmieci 
+       - jak damy wielkość = 400, to box będzie miał 400 
+       przeciwieństwem i wartością domyślną jest:
+       content-box */
+    
+       padding: 3rem;
+
+       @include res(tab-port) {  
+        padding: 0;         
+    }
+
+}

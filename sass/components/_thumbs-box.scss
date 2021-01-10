@@ -1,0 +1,27 @@
+.thumbs-box {
+    background-color: rgba($color-white, .8);
+    font-size: 1.5rem;
+    text-align: center;
+    padding: 2.5rem;
+    box-shadow: 0 1rem 2rem rgba($color-black, .2);
+    border-radius: 4px;
+    transition: all .5s; 
+
+    &__icon{
+        margin-bottom: .5rem;
+        font-size: 6rem;
+
+                // gradient: tak naprawdę efekt znajduje się w tle, a w napisie pojawia się dzięki przezroczystej czcionce
+            display: inline-block;  //ogranicza tło do szerokości napisu
+
+            background-image: linear-gradient(to right, $color-primary, $color-grey-dark);
+            -webkit-background-clip: text;
+            color: transparent;
+                // webkit zrównuje tło z powierzchnią tekstu
+                // przezroczystość pozwala na zobaczenie kolorowego tła 
+    }
+
+    &:hover {
+        transform: translateY(-2rem) scale(1.1);
+    }
+}

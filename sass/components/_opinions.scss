@@ -1,0 +1,77 @@
+.opinion {
+    width: 75%;
+    margin: 0 auto;
+    padding: 5rem;
+    border-radius: 3px;
+    box-shadow: 0 1rem 4rem rgba($color-black, .2);
+    background-color: rgba($color-white, .6);
+    font-size: $default-heading;
+    transform: skewX(-10deg);
+        //wykrzywia cala sekcje do rombu
+
+    &__img {
+        position: relative;
+
+        width: 15rem;
+        height: 15rem;
+        float: left;
+            // trzy powyzsze wlasciwosci sa potrzebne do zastosowania funkcji 
+            // shape-outside, ktora pozwala ksztaltowac obrys tekstu wzgledem np. obrazka
+        shape-outside: circle(50% at 50% 50%);
+        -webkit-shape-outside: circle(50% at 50% 50%);
+            // atrybuty circle: (promień at poczatkowy punkt na osi X, poczatkowy punkt na osi Y)
+
+        clip-path: circle(50% at 50% 50%);
+
+        transform: translateX(-3rem) skewX(10deg);
+            // zamiast paddingu oddzielamy tekst od zdjecia transformem
+            // dodajemy skewX zeby nie przekrzywialo zdjecia
+
+    }
+
+    &__photo {
+        height: 100%;
+        // chca zmienic pozycje foty, robimy to za pomoca 
+                // transform: translateX(-3rem)
+                //      dodajac
+                // backface-visibility: hidden
+                //      coby uniknac znieksztalcenia obrazka
+        transform: scale(1.3);
+        backface-visibility: hidden;
+        transition: all .4s;
+    }
+
+    &__text {
+        transform: skewX(10deg);
+    }
+
+    &__caption {
+        text-align: center;
+
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, 0);
+            //druga wartosc dajemy na zero, bo po hoverze napis na wjezdzac od dolu
+        font-size: $default-heading;
+        color: $color-white;
+        text-transform: uppercase;
+
+        opacity: 0;
+            //zero, bo dopiero hover uruchamia funkcje
+        transition: all .4s;
+        backface-visibility: hidden;
+            //usuwamy w ten sposob podskok tekstu w gore przy koncu animacji
+    }
+
+        &:hover &__caption {
+            transform: translate(-50%, -50%);
+            opacity: 1;
+        }
+
+        &:hover &__photo {
+            transform: scale(1);
+            filter: blur(3px) brightness(60%);
+                //rozmazuje zdjecie i przyciemnia; brightness=100% to stan normalny
+        }
+}

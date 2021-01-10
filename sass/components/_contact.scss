@@ -1,0 +1,150 @@
+.contact {
+    background-image: 
+        linear-gradient(105deg,
+                        rgba($color-white, .9) 0%,
+                        rgba($color-white, .9) 60%,
+                        transparent 40%),
+        url(../img/contact3.jpg);
+    height: 55rem;
+    background-size: cover;
+    border-radius: 5px;
+    box-shadow: 0 2rem 5rem rgba($color-black, .3);
+
+    &__form {
+        width: 53%;
+        padding: 4rem;
+    }
+}
+
+.form {
+    &__group:not(:last-child) {
+        margin-bottom: 1.5rem;
+    }
+
+    &__input {
+            // inputy maja to do siebie, ze NIE DZIEDZICZA WLASCIWOSCI FONTOW
+        font-size: 1.4rem;
+        color: inherit;
+        font-family: inherit;
+            // odziedziczy czcionke z poprzednich elementow
+
+        background-color: rgba($color-white, .5);
+
+        border-radius: 2px;
+        border: none;
+        border-bottom: 3px solid transparent;
+            // dajemy border transparent, bo kiedy fokus jest wcisniety i dodaje kolorowy border, calosc inputa podnosi sie nienaturalnie do gory
+        
+        display: block;
+        width:80%;
+        padding: 1.5rem 2rem;
+            //w inputach dajemy nieregularny padding, jak w ramce do obrazka, zeby wygladalo more natural
+
+        transition: all .3s;
+    
+        &:focus {
+                // ta funkcja odpowiada za obramowanie inputa po nacisnieciu
+                // uwaga: zawsze nalezy jakos zaznaczyc, ze input jest aktywny po kliknieciu
+            outline: none;
+            box-shadow: 0 1rem 2rem rgba($color-black, .2);
+            border-bottom: 3px solid $color-primary;
+        }
+
+        &:focus:invalid {
+                //rodzaj walidacji formularza - podkresla innym kolorem niepoprawnie wypelniony input
+            border-bottom: 3px solid $color-trd-light;
+        }
+    
+        &::-webkit-input-placeholder {
+                //gdy zaczynamy wpisywac tekst czcionka staje sie ciemniejsza
+            color: $color-grey-dark-more;
+        }
+    }
+        
+// label stylizacja samego napisu bez animacji
+
+    &__label {
+        margin: 2rem;
+            //dajemy wartość równą paddingowi placeholdera w inpucie, żeby wyrównać wizualnie oba teksty
+        margin-top: .8rem;
+        font-size: 1.2rem;
+        font-weight: 700;
+        display: block;
+        transition: all .2s;
+    }
+
+// ----------  ANIMACJA MIĘDZY LABELEM A INPUTEM
+
+// 1. pseudo klasa placeholder-shown uruchamia sie w momencie wklepywania tekstu
+// 2. normalnie w sass nie da się postawic obok siebie dwoch klas, jeżeli pierwsza jest pod/pseudo klasa jakiejs innej
+// 2. "+" między dwoma instancjami pozwala na polaczenie klas o roznych stopniach zapetlenia 
+//     wg zasady klasa zagniezdzona + KOLEJNA NASTPEPUJACA PO NIEJ PELNA KLASA
+// 3. "~" to samo, z tym, że klasa PO "~" moze byc oddzielona od pierwszej o pare klas - nie musze byc po kolei
+
+    &__input:placeholder-shown + &__label {
+        opacity: 0;
+        visibility: hidden;
+            // dajemy zarowno V jak i O, bo V nie da sie animowac, a samo O:0 tylko ukrywa element, V:H wywala go
+        transform: translateY(-4rem);
+            //to umiesci poczatkowy stan labela na poziomie inputa, choc nie do konca kumam po co to
+    }
+
+ // ---------------- ATTENTION: BUDOWANIE WLASNEGO RADIO-BUTTONA - NASTEPNYM RAZEM NIE ROBIC TEGO W CSS, BO TO ZAWRACAANIE GLOWY
+
+    &__radio-group {
+        display: inline-block;
+        width: 48%;
+            //ta wartosc jest dosc z dupy, na zasadzie prob i bledow
+    }
+
+    &__radio-input {
+        display: none;
+            //ukrywa oryginalny radio-button
+    }
+
+    &__radio-label {
+        font-size: 1.5rem;
+        cursor: pointer;
+
+        // CELOWANIE KOLKIEM, ABY NAJECHALO NA ORYGINALNEGO RADIO-BUTTONA
+        position: relative;
+        padding-left: 4rem;
+    }
+
+// OKRAG BUTTONA
+    &__radio-button {
+        height: 3rem;
+        width: 3rem;
+        border: 5px solid $color-primary;
+        border-radius: 50%;
+        display: inline-block;
+            // calosc zabawy w robienie kolka zadziala tylko przy dodaniu display: block / inline-block
+    
+        // CELOWANIE KOLKIEM, ABY NAJECHALO NA ORYGINALNEGO RADIO-BUTTONA
+        position: absolute;
+        left: 0;
+
+    // KOLKO W OKREGU
+        &::after {
+            content: "";
+            display: block;
+            height: 1.4rem;
+            width: 1.4rem;
+            border-radius: 50%;
+            position: absolute;
+            background-color: $color-primary;
+
+            opacity: 0;
+            transition: all .2s;
+
+        // celowanie w srodek
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    }
+
+    &__radio-input:checked ~ &__radio-label &__radio-button::after {
+        opacity: 1;
+    }
+}

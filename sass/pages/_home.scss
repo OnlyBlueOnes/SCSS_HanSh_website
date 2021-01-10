@@ -1,0 +1,67 @@
+ .section-about{
+     background-color: $color-grey-light;
+     padding: 25rem 0;
+     margin-top: -20vh;
+
+     @include res(tab-port) {
+        padding: 20rem 0;
+     }
+ }
+
+ .section-thumbs {
+    padding: 20rem 0;
+    background-image: linear-gradient(
+        to right bottom,
+            /* określamy kierunek rozchodzenia się gradientu */
+        rgba( $color-primary-light, 0.8),
+        rgba( $color-primary-dark, 0.8)),
+            /* kolory określamy za pomocą suwaka na tablicy, od razu ustalając opacity */
+    url(../img/header2.jpg);
+    background-size: cover;
+        /* pozwala pokryć całą okresloną pojemność ekranu */ 
+    margin-top: -20vh;
+        // minusowy margin zazebia sekcje zrobione po skosie
+    
+    transform: skewY(-7deg);
+        //wykrzywia cala sekcje po skosie
+
+    & > * {
+        // gwiazdka oznacza wybranie wszytkich 
+        // BEZPOSREDNICH elementow typu CHILD,
+        // dla elementu calej sekcji w tym przypadku
+        transform: skewY(7deg);
+
+        @include res(tab-port) {
+            padding: 15rem 0;
+         }
+    }
+}
+
+.section-models{
+    background-color: $color-grey-light;
+    margin-top: -20vh;
+    padding: 30rem 0 10rem 0;
+
+    @include res(tab-port) {
+        padding: 25rem 0 7rem;
+     }
+}
+
+.section-opinions{
+    position: relative;
+    padding: 15rem 0;
+        //tylko fora i dol, bez bokow, bo w tle bedzie film
+
+        @include res(tab-port) {
+            padding: 10rem 0;
+         }
+}
+
+.section-contact {
+    padding: 15rem 0;
+    background-image: linear-gradient(to right bottom, 
+        rgba($color-snd, .7), 
+        rgba($color-snd-light, .7), 
+        rgba($color-snd-dark, .7));
+}
+

@@ -1,0 +1,76 @@
+
+.row {
+     max-width: $grid-width;
+         // if it is possible give $grid-width value
+
+     margin: 0 auto;
+    
+     &:not(:last-child) {
+         margin-bottom: $space-between-rows;
+
+         @include res(tab-port) {
+            margin-bottom: $space-between-rows-s;
+        }
+     }
+
+     @include res(tab-port) {
+        max-width: 50rem;
+        padding: 0;
+    }
+
+    @include res(phone) {
+        max-width: 35rem;
+        padding: 0;
+    }
+
+    @include clearfix;
+
+   // [class*="col-"]  gwiazdka = wyszuka wszystkie klasy w której WYSTĘPUJE człon "col-", nawet w środku wyrażenia
+   // [class$="col-"]  dolar = wszytskie klasy KOŃCZĄCE SIĘ na "col-"
+  
+   [class^="col-"] {       
+       // daszek ( ^ ) = wszytskie klasy rozpoczynające się od "col-"
+        float: left;
+
+        &:not(:last-child){
+            margin-right: $space-between-columns;
+
+            @include res(tab-port) {
+                margin-right: 0;
+                margin-bottom: $space-between-rows-s;
+            }
+        }
+
+        @include res(tab-port) {
+            width: 100% !important;
+        }
+    }
+
+//regularne wielkości
+
+    .col-1-of-2 {
+        width: calc((100% - #{$space-between-columns}) /2);     
+    }
+
+    .col-1-of-3 {
+        width: calc((100% - (2 * #{$space-between-columns})) /3);
+    }
+
+    .col-1-of-4 {
+        width: calc((100% - (3 * #{$space-between-columns})) /4);
+    }
+
+    //nieragularne wielkości
+
+    .col-2-of-3 {
+        width: calc(2* ((100% - 2 * #{$space-between-columns}) /3) + #{$space-between-columns});     
+    }
+
+    .col-2-of-4 {
+        width: calc(2* ((100% - 3 * #{$space-between-columns}) /4) + #{$space-between-columns});     
+    }
+
+    .col-3-of-4 {
+        width: calc(3* ((100% - 3 * #{$space-between-columns}) /4)+ 2* #{$space-between-columns});
+    }
+}

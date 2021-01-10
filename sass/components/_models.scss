@@ -1,0 +1,217 @@
+.models {
+    perspective: 150rem;
+    -moz-perspective: 150rem;
+        //Z TYM NALEZY SIE POBAWIC
+    position: relative;
+    height: 50rem;
+        // dajemy tutaj i w __side te sama wysokosc, 
+        // bo pozycja absolute w __side sprawia, 
+        // że klasa models traci wysokosc 
+        // i przez to nie dziala perspektywa
+        // TEGO NIE NAPRAWIMY CLEARFIXEM
+
+    &__side {
+        background-color: $color-primary;
+        height: 50rem;
+        transition: all .9s ease;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        backface-visibility: hidden;
+            //ukrywamy druga strone kafelka
+        border-radius: 3px;
+        overflow: hidden;
+            //to spowoduje ze cornery nadal bd okregle
+        box-shadow: 0 2rem 4rem rgba($color-black, .2);
+
+        &--front {
+            background-color: $color-white;
+        }
+
+        &--back {
+            transform: rotateY(180deg);
+
+            &-1 {
+                background-image: linear-gradient(to right bottom, $color-snd, $color-snd-light, $color-snd-dark);
+            }
+            &-2 {
+                background-image: linear-gradient(to right bottom, $color-trd, $color-trd-light, $color-trd-dark);
+            }
+            &-3 {
+                background-image: linear-gradient(to right bottom, $color-fth, $color-fth-light, $color-fth-dark);
+            }
+        }
+    }
+
+    &:hover &__side--front {
+        transform: rotateY(-180deg);
+    }
+
+    &:hover &__side--back {
+        transform: rotateY(0deg);
+    }
+
+    // front styling
+    &__img {
+        background-size: cover;
+        height: 23rem;
+        clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+        -webkit-clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+        background-blend-mode: multiply;
+            //blend dziala jak filtry z gradientu
+            // potrzebna opcje trzeba dopasowac do zdjecia
+
+        &--1 {
+            background-image: 
+            linear-gradient(to right bottom, $color-snd, $color-snd-light),
+                url(../img/models8.jpg);      
+        }
+        &--2 {
+            background-image: 
+            linear-gradient(to right bottom, $color-trd, $color-trd-light, $color-trd-dark),
+                url(../img/models6.jpg);      
+        }
+        &--3 {
+            background-image: 
+            linear-gradient(to right bottom, $color-fth, $color-fth-light, $color-fth-dark),
+                url(../img/models7.jpg);      
+        }
+    }
+
+    &__heading {
+        position: absolute;
+        text-transform: uppercase;
+        text-align: right;
+        font-weight: 500;
+        font-size: 2.6rem;
+        color: $color-white;
+        top: 12rem;
+        right: 3rem;
+        // width:75%;
+    }
+
+    &__heading-span {
+        padding: 1rem 4.5rem;
+            // wartosc 4.5 sprawia, ze wyrazy nie mieszcza sie w jendej linii i wymusza to przerzut do linii nastepnej
+        box-decoration-break: clone;
+            //nie do konca to rozumiem, ale chyba oddziela to linie robiac z nich dwa elementy
+        -webkit-box-decoration-break: clone;
+            //w chromie musi byc z webkitem
+
+        &--1 {
+            background-image: linear-gradient(to right bottom,
+            rgba($color-snd, .8),
+            rgba($color-snd-light, .8));
+        }
+
+        &--2 {
+            background-image: linear-gradient(to right bottom,
+            rgba($color-trd, .8),
+            rgba($color-trd-light, .8),
+            rgba($color-trd-dark, .8));
+        }
+
+        &--3 {
+            background-image: linear-gradient(to right bottom,
+            rgba($color-fth, .8),
+            rgba($color-fth-light, .8),
+            rgba($color-fth-dark, .8));
+        }
+    }
+
+    &__details {
+        padding: 2rem;
+
+        ul {
+            list-style: none;
+            width: 80%;
+
+            margin: 0 auto;
+                // ZAWSZE DO WYROWNANIA ELEMENTOW W BLOKU !!!
+
+            li{
+                text-align: center;
+                font-size: 2em;
+                padding: 1rem;
+
+                &:not(:last-child){
+                    border-bottom: 1px solid $color-grey-light;
+                }
+            }
+        }
+    }
+
+    // BACK SIDE STYLE
+
+    &__back-view {
+        top: 50%;
+        left: 50%;
+        position: absolute;
+        transform: translate(-50%, -50%);
+            //wszystkie 4 funkcje powyzej razem wziete powinny wycentrowac pole
+        text-align: center;
+    }
+
+    &__price-box {
+        
+        color: $color-white;
+        text-transform: uppercase;
+    }
+
+    &__price-text {
+        font-size: 1.8em;
+    }
+
+    &__price-value {
+        font-weight: 300;
+        font-size: 6rem;
+    }
+
+    @include res(tab-port) {
+        height: 50rem;
+    
+        &__side {
+            background-color: $color-primary;
+            height: auto;
+            position: relative;
+            border-radius: 3px;
+    
+            &--back {
+                transform: rotateY(0);
+            }
+        }
+    
+        &:hover &__side--front {
+            transform: rotateY(0);
+        }
+    
+        // BACK SIDE STYLE
+    
+        &__back-view {
+            top: 0;
+            left: 0;
+            position: relative;
+            width: 100%;
+            transform: translate(0);
+            padding: 7rem 4rem 4rem 4rem;
+        }
+    
+        &__price-box {
+            
+            color: $color-white;
+            text-transform: uppercase;
+            margin-bottom: 8rem;
+        }
+    
+        &__price-text {
+            font-size: 1.8em;
+        }
+    
+        &__price-value {
+            font-weight: 300;
+            font-size: 6rem;
+        }
+
+        }
+}

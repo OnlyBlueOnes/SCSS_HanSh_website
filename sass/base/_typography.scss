@@ -1,0 +1,118 @@
+
+body {
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+   /* font-size: 16px; */
+    line-height: 1.7;
+    color: $color-grey-dark;
+    padding: 3rem;
+}
+
+.heading {
+    color: $color-white;
+    text-transform: uppercase;
+    margin-bottom: 5rem;
+
+    backface-visibility: hidden;
+        /* ukrywa ruchy pomiędzy etapami animacji, np. podskok do góry */
+
+        &--main {
+            display: block; 
+             /* block rozciaga zawartosc na 100% szerokości i daje linie odstępu */
+            font-size: 6rem;
+            font-weight: 4rem;
+            letter-spacing: 3rem;
+        
+            /* zamiast ustawiać wszystkie ustawinia dotyczace animacji w danej klasie,
+               kod obsługujący animację przenosimy w oddzielną funkcję
+               @keyframes
+               wtedy w klasie eleentu, którego animacja dotyczy okreslamy jedynie:
+               -> nazwę animacji
+               -> czas trwania / opoznienia / ilość powtorzen */
+            
+            animation-name: moveInLeft;
+            animation-duration: 3s;
+            animation-timing-function: ease-out;  
+                /* ease-out: szybki start i prograsywne zwalnianie
+                   ease-in: wolny start a następnie przyspieszanie
+                   ease (default) : od momentu startu ciągle przyspiesz, żeby nagle zwolnić przed momentem końca
+        
+            /*
+            animatation-iteration-count: 3;     -> animacja wykona się trzy razy
+            animation-delay: 1s;    -> animacja rozpocznie sie z 1 sekunda opoznienia
+            */
+
+            @include res(tab-port) {    // width < 600?
+                font-size: 4.5rem;
+                letter-spacing: 1.5rem;      
+            }
+
+            @include res(phone) {  
+                font-size: 3rem;
+                letter-spacing: .7rem;      
+            }
+        }
+        
+        &--sub {
+            display: block;
+            font-size: $default-heading;
+            font-weight: 700;
+            letter-spacing: 1.5rem;
+            animation: moveInRight 3s ease-out;
+
+            @include res(tab-port) {
+                letter-spacing: 1rem;      
+            }
+
+            @include res(phone) {  
+                letter-spacing: .5rem;      
+            }
+        }
+}
+
+.heading-section-two {
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 3.5rem;
+
+// gradient: tak naprawdę efekt znajduje się w tle, a w napisie pojawia się dzięki przezroczystej czcionce
+    display: inline-block;  //ogranicza tło do szerokości napisu
+    color: $color-primary-dark;
+
+    //background-image: linear-gradient(to right, $color-primary, $color-primary-dark);
+    //-webkit-background-clip: text;
+    //color: transparent;
+        // webkit zrównuje tło z powierzchnią tekstu
+        // przezroczystość pozwala na zobaczenie kolorowego tła
+
+    letter-spacing: 2px;
+    transition: all .2s;   //dla hoovera
+
+    @include res(tab-port) {  
+        font-size: 2.5rem;    
+    }
+
+    @include res(phone) {  
+        font-size: 1.5rem;    
+    }
+
+    &:hover {
+        transform: skewY(-4deg) skewX(15deg) scale(1.1);
+        text-shadow: .5rem 1rem 2rem rgba($color-black, .2);
+    }
+}
+
+.heading-partial {
+    font-size: $default-heading;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.paragraph {
+    font-size: $default-heading;
+    font-weight: 400;
+
+    &:not(:last-child){
+        margin-bottom: 3rem;
+    }
+}

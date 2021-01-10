@@ -1,0 +1,204 @@
+.navigation {
+
+    &__checkbox {
+        display: none;
+    }
+
+    &__button {
+    //kolko z ikona menu
+        background-color: $color-white;
+        border-radius: 50%;
+        height: 7rem;
+        width: 7rem;
+            //dajemy wiecej rem zeby kolko pokrylo to kolorowe
+
+        position: fixed;
+        top: 6rem;
+        right: 6rem;
+        z-index: 300;
+
+        box-shadow: 0 1rem 2rem rgba($color-black, .1);  
+        cursor: pointer; 
+        text-align: center;
+            // razem z margin-top z &__icon centruje linie w buttonie menu
+
+            @include res(tab-port) {
+                top: 4rem;
+                right: 4rem;
+            }
+        
+            @include res(phone) {
+                top: 3rem;
+                right: 3rem;
+            }
+        }
+
+    &__background {
+
+    // kolorowe kołko ktore bedziemy skalowac do rozmiaru calego tla
+        width: 6rem;
+        border-radius: 50%;
+
+    //ustawienie kolka z boku strony
+        position: fixed;
+        top: 7rem;
+        right: 6.5rem;
+        z-index: 100;   //dajemy wysoki bo musi wyjsc na wierzch wszystkich elementow strony
+
+    //kolor
+        background-image: radial-gradient($color-primary-light, $color-primary-dark);
+
+    //efekt pojawienia sie po wcisnieciu buttona menu
+       //transition: transform .5s cubic-bezier(0.645, 0.045, 0.355, 1);
+
+       @include res(tab-port) {
+        top: 5rem;
+        right: 4.5rem;
+    }
+
+    @include res(phone) {
+        top: 4rem;
+        right: 3.5rem;
+    }
+    }
+
+    &__bar {
+    //umieszaczamy tlo na cala powierzchnie ekranu
+        height: 100vh;
+        position: fixed;
+        top:0;
+        left: 0;
+
+        z-index: 200;
+            // wartosc mniejsza od bialego buttona, ktory zawsze ma byc na wierzchu
+            // ale wieksza niz tla, bo tlo ma zostac z tylu
+
+        width: 0;
+        opacity: 0;
+           // te dwie wartosci sprawiaja ze menu jest niewidoczne
+           // samo opacity nie zadziala: ukryje linki, ktore caly czas bd aktywne pod spodem, co mija sie z celem
+
+    //efekt pojawienia sie po wcisnieciu buttona menu
+       // transition: all .5s cubic-bezier(0.645, 0.045, 0.355, 1);
+    }
+
+    &__list {
+    //wycentrowanie listy
+        position: absolute;
+        left: 50%;
+        top:50%;
+        transform: translate(-50%,-50%);
+
+    //wycentrowanie zawartosci
+        text-align: center;
+        list-style: none;
+
+        width: 100%;
+            //to dajemy na potrzeby animacji po wciscnieciu buttona menu
+    }
+
+    &__item {
+        margin: 1rem;
+    }
+
+    &__link {
+        &:link,
+        &:visited 
+        {
+            display: inline-block;
+
+            font-size: 3rem;
+            font-weight: 600;
+            padding: 1rem 2rem;
+            color: $color-white;
+            text-decoration: none;
+            text-transform: uppercase;
+
+// --------------- animacja z najezdzajacym na napis paskiem ----------------------------------------------------------
+            background-image: linear-gradient(120deg, transparent 0%, transparent 55%, $color-white 45%);
+            background-size: 250%;
+                // przesuwa gradient tak, ze widzimy tylko przezroczysta czesc
+                // kolorowa pojawia sie po animacji
+
+            transition: all .5s;
+        }
+
+        &:hover,
+        &:active {
+            background-position: 100%;
+                //powrot do gradientu w ktorym widac tylko czesc biala (najezdzajaca)
+            color: $color-primary-dark;
+            transform: translateX(1.5rem);
+        } 
+    }
+ // --------------- koniec: animacja z najezdzajacym na napis paskiem ---------------------------------------------
+
+// ---------------- efekt po nacisnieciu buttona menu -----------------------------------------------
+    &__checkbox:checked ~ &__background {
+        transform: scale(110);
+    }
+
+    &__checkbox:checked ~ &__bar {
+        width: 100%;
+        opacity: 1;
+    }
+// ---------------- koniec: efekt po nacisnieciu buttona menu -----------------------------------------------
+
+
+// ---------------- ikona menu - troche duzo pieprzenia z tym--------------------------------------
+    &__icon {
+        position: relative;
+        margin-top: 3.5rem;
+            // ten margin pozwala na umiejscowienie spana z liniami
+            // razem z text-align:center w buttonie
+
+        &,
+        &::before,
+        &::after {
+            width: 3rem;
+            height: 2px;
+            background-color: $color-grey-dark-more;
+            display: inline-block;
+        }
+
+        &::before,
+        &::after {
+            content: "";
+            position: absolute;
+            left:0;
+            transition: all .2s;
+        }
+
+        &::before {top: -.8rem;}
+        &::after {top: .8rem;}
+    }
+
+// ---------- zwezanie sie linii w buttonie menu po hoverze ----------------------
+    &__button::hover &__icon::before {
+        top: -1rem;
+    }
+
+    &__button::hover &__icon::after {
+        top: 1rem;
+    }
+// ---------- koniec: zwezanie sie linii w buttonie menu po hoverze ----------------------
+
+// ---------- zmiana linii na krzyzyk ----------------------
+
+    &__checkbox:checked + &__button &__icon {
+        background-color: transparent;
+            //srednia belke usuwamy
+    }
+
+    &__checkbox:checked + &__button &__icon::before {
+        top:0;
+        transform: rotate(45deg);  // transform: rotate(135deg); zrobi to samo tylko w druga strone
+    }
+
+    &__checkbox:checked + &__button &__icon::after {
+        top:0;
+        transform: rotate(-45deg);  // transform: rotate(-135deg); zrobi to samo tylko w druga strone
+    }
+
+// ---------- koniec: zmiana linii na krzyzyk ----------------------
+}

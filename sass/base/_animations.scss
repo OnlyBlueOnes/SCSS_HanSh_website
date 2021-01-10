@@ -1,0 +1,47 @@
+/*--------------------------ANIMACJE dla HEADER + BUTTON------------------*/
+
+@keyframes moveInLeft {
+    0% {
+        opacity: 0;
+        transform: translate(-5rem);
+    }
+
+    70% {
+        transform: translate(0.5rem);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate(0);
+    }
+}
+
+@keyframes moveInTop {
+    0% {
+        opacity: 0;
+        transform: translateY(-5rem);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes moveInRight {
+    0% {
+        opacity: 0;
+        transform: translate(5rem);
+    }
+
+    70% {
+        transform: translate(-0.5rem);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate(0);
+    }
+}
+
+/*--------------------------ANIMACJE dla HEADER + BUTTON: END  ------------------*/
